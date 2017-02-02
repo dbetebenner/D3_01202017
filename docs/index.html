@@ -253,10 +253,10 @@ d3.json("baseball_team_wins.json", function(error, data) {
       .attr("cy", yMap)
       .on("mouseover", function(d) {
           tooltip.transition()
-               .duration(150)
+               .duration(75)
           			.style("opacity", .9);
-          tooltip.html("<b>" + d.name + "</b>" + "<br/> 2015: " + xValue(d)
-	        + " Wins, 2016: " + yValue(d) + " Wins")
+          tooltip.html("<b>" + d.name + "</b>" + "<br/>" + (activeYear - 1) + ": " + xValue(d)
+	        + " Wins, " + activeYear + ": " + yValue(d) + " Wins")
                .style("left", (d3.event.pageX + 5) + "px")
                .style("top", (d3.event.pageY - 28) + "px");
       })
@@ -313,7 +313,21 @@ d3.json("baseball_team_wins.json", function(error, data) {
       svg.selectAll(".dot")
          .data(teams)
          .attr("cx", xMap)
-         .attr("cy", yMap)    
+         .attr("cy", yMap)
+         .on("mouseover", function(d) {
+          tooltip.transition()
+               .duration(75)
+          			.style("opacity", .9);
+          tooltip.html("<b>" + d.name + "</b>" + "<br/>" + (activeYear - 1) + ": " + xValue(d)
+	        + " Wins, " + activeYear + ": " + yValue(d) + " Wins")
+               .style("left", (d3.event.pageX + 5) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+              tooltip.transition()
+               .duration(300)
+               .style("opacity", 0);
+          });
     } //END update
 });
 
